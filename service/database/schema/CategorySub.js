@@ -6,7 +6,7 @@ const categorySubSchema = new Schema({
     unique: true,
     type: String
   },
-  MALL_CATEGORY_NAME: String,
+  MALL_CATEGORY_ID: String,
   MALL_SUB_NAME: String,
   COMMENTS: Number,
   SORT: Number
