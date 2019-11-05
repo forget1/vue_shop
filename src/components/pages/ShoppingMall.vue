@@ -73,6 +73,7 @@ import {swiper, swiperSlide} from 'vue-awesome-swiper'
 import floorComponent from '../component/floorComponent'
 import goodsInfo from '../component/goodsInfoComponent'
 import {toMoney} from '@/filter/moneyFilter'
+import url from '@/serviceAPI.config.js'
 export default {
   data () {
     return {
@@ -99,7 +100,7 @@ export default {
   components: { swiper, swiperSlide, floorComponent, goodsInfo },
   created () {
     axios({
-      url: 'http://mock-api.com/lzjAWVK4.mock/vue_shop',
+      url: url.getShoppingMallInfo,
       method: 'get'
     }).then(res => {
       if (res.status === 200) {
