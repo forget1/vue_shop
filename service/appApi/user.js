@@ -22,5 +22,37 @@ router.post('/register', async (ctx) => {
     }
   })
 })
+router.post('/login', async (ctx) => {
+  let loginUser = ctx.request.body
+  let userName = loginUser.userName
+  let password = loginUser.password
+  const User = mongoose.model('User')
+  await User.findOne({userName: userName}).exec().then(async (res) => {
+    if (res) {
+      let newUser = new User()
+      await newUser.comparePassword(password, res.password).then((isMatch) => {
+        ctx.body = {
+          code: 200,
+          msg: isMatch
+        }
+      }).catch(error => {
+        ctx.body = {
+          code: 500,
+          msg: error + 'dsa'
+        }
+      })
+    } else {
+      ctx.body = {
+        code: 200,
+        msg: '用户名不存在'
+      }
+    }
+  }).catch(error => {
+    ctx.body = {
+      code: 500,
+      msg: error + 'asd'
+    }
+  })
+})
 
 module.exports = router
