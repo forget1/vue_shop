@@ -46,7 +46,7 @@ export default {
     }
   },
   created () {
-    if(localStorage.userInfo) {
+    if (localStorage.userInfo) {
       Toast.success('您已经登录')
       this.$router.push('/')
     }
@@ -86,7 +86,7 @@ export default {
             localStorage.userInfo = {userName: this.username}
             setTimeout(() => {
               resolve()
-            }, 500);
+            }, 500)
           }).then(() => {
             Toast.success('login success')
             this.openLoading = false
