@@ -34,7 +34,7 @@
 <script>
 import axios from 'axios'
 import url from '@/serviceAPI.config.js'
-// import {Toast} from 'vant'
+import {Toast} from 'vant'
 export default {
   data () {
     return {
@@ -43,6 +43,12 @@ export default {
       openLoading: false,
       usernameErrorMsg: '',
       passwordErrorMsg: ''
+    }
+  },
+  created () {
+    if(localStorage.userInfo) {
+      Toast.success('您已经登录')
+      this.$router.push('/')
     }
   },
   methods: {
@@ -75,9 +81,28 @@ export default {
           password: this.password
         }
       }).then(res => {
-        console.log(res)
+        if (res.data.code === 200 && res.data.msg) {
+          new Promise((resolve, reject) => {
+            localStorage.userInfo = {userName: this.username}
+            setTimeout(() => {
+              resolve()
+            }, 500);
+          }).then(() => {
+            Toast.success('login success')
+            this.openLoading = false
+            this.$router.push('/')
+          }).catch(err => {
+            Toast.fail('save login state fail')
+            console.log(err)
+          })
+        } else {
+          Toast.fail('login fail')
+          this.openLoading = false
+        }
       }).catch(error => {
         console.log(error)
+        Toast.fail('login fail')
+        this.openLoading = false
       })
     },
     LoginAction () {

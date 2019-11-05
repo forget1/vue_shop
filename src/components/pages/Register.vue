@@ -77,6 +77,7 @@ export default {
       }).then(res => {
         if (res.data.code === 200) {
           Toast.success('register success')
+          this.openLoading = false
           this.$router.push('/')
         } else {
           Toast.fail('register fail')
