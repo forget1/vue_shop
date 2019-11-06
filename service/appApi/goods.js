@@ -82,4 +82,42 @@ router.post('/getDetailGoodsInfo', async (ctx) => {
   }
 })
 
+// 获取大类别
+router.get('/getCategoryList', async (ctx) => {
+  try {
+    const Category = mongoose.model('Category')
+    let result = await Category.find().exec()
+    ctx.body = { code: 200, msg: result }
+  } catch (err) {
+    ctx.body = { code: 500, msg: err }
+  }
+})
+
+// 获取小类别
+router.post('/getCategorySubList', async (ctx) => {
+  try {
+    let categoryId = ctx.request.body.categoryId
+    const CategorySub = mongoose.model('CategorySub')
+    let result = await CategorySub.find({MALL_CATEGORY_ID: categoryId}).exec()
+    ctx.body = { code: 200, msg: result }
+  } catch (err) {
+    ctx.body = { code: 500, msg: err }
+  }
+})
+
+// 根据物品类别获取商品列表
+router.post('/getGoodsListByCategorySubID', async (ctx) => {
+  try {
+    let categorySubId = ctx.request.body.categorySubId
+    let page = ctx.request.body.page
+    let num = 10
+    let start = (page - 1) * num
+    const Goods = mongoose.model('Goods')
+    let result = await Goods.find({SUB_ID: categorySubId}).skip(start).limit(num).exec()
+    ctx.body = { code: 200, msg: result }
+  } catch (err) {
+    ctx.body = { code: 500, msg: err }
+  }
+})
+
 module.exports = router
