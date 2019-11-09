@@ -79,7 +79,7 @@ export default {
     addGoodsToCart () {
       let cartInfo = localStorage.cartInfo ? JSON.parse(localStorage.cartInfo) : []
       let isHaveGoods = cartInfo.find(cart => cart.goodsId === this.goodsId)
-      if (isHaveGoods) {
+      if (!isHaveGoods) {
         let newGoodsInfo = {
           goodsId: this.goodsInfo.ID,
           name: this.goodsInfo.NAME,

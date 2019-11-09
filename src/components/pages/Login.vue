@@ -48,7 +48,7 @@ export default {
   created () {
     if (localStorage.userInfo) {
       Toast.success('您已经登录')
-      this.$router.push('/')
+      this.$router.push('/member')
     }
   },
   methods: {
@@ -90,7 +90,7 @@ export default {
           }).then(() => {
             Toast.success('login success')
             this.openLoading = false
-            this.$router.push('/')
+            this.$router.push('/member')
           }).catch(err => {
             Toast.fail('save login state fail')
             console.log(err)
