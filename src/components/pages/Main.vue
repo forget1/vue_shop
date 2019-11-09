@@ -32,7 +32,7 @@ export default {
     changeTabBarActive () {
       this.nowPath = this.$route.path
       switch (this.nowPath) {
-        case '/main/':
+        case '/shoppingmall':
           this.active = 0
           break
         case '/categorylist':
